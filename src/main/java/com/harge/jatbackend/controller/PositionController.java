@@ -2,8 +2,8 @@ package com.harge.jatbackend.controller;
 
 import java.util.List;
 
-import com.harge.jatbackend.model.LCATLevel;
-import com.harge.jatbackend.repository.LCATLevelRepository;
+import com.harge.jatbackend.model.Position;
+import com.harge.jatbackend.repository.PositionRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,22 +16,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/")
 @CrossOrigin(origins = "http://localhost:4200") 
-public class LCATLevelController 
+public class PositionController 
 {
     @Autowired
-    private LCATLevelRepository lcatLevelRepository;
+    private PositionRepository positionRepository;
 
-    // get all LCAT Levels
-    @GetMapping("/lcat-levels")
-    public List<LCATLevel> getAllLCATLevels()
+    // get all Positions
+    @GetMapping("/positions")
+    public List<Position> getAllPositions()
     {
-        return lcatLevelRepository.findAll();
+        return positionRepository.findAll();
     }
 
-    // add LCAT Level
-    @PostMapping("/lcat-levels")
-    public LCATLevel addLCATLevel(@RequestBody LCATLevel lcatLevel)
+    // add Position
+    @PostMapping("/positions")
+    public Position addPosition(@RequestBody Position position)
     {
-        return lcatLevelRepository.save(lcatLevel);
+        return positionRepository.save(position);
     }
 }
