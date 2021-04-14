@@ -32,16 +32,16 @@ public class PositionController
 
     // get distinct LCATs
     @GetMapping("/positions/lcats")
-    public List<Object> getDistinctLCATDescriptions() 
+    public List<String> getDistinctLCATDescriptions() 
     {
         return positionRepository.findLCATDescriptions();
     }
 
     // get LCAT Levels by LCAT Description
     @GetMapping("/positions/{lcatDescription}")
-    public List<Object> getLCATLevelsByLCATDescription(@PathVariable String lcatDescription)
+    public List<String> getLCATLevelsByLCATDescription(@PathVariable Object lcatDescription)
     {
-        List<Object> lcatLevels = null;
+        List<String> lcatLevels = null;
         try 
         {
             lcatLevels = positionRepository.findLCATLevels(lcatDescription);

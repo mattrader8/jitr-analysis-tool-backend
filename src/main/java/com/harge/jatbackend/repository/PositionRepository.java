@@ -11,8 +11,8 @@ import org.springframework.data.repository.query.Param;
 public interface PositionRepository extends JpaRepository<Position, Long>
 {
     @Query(value = "SELECT DISTINCT V_LCATDescription_PO FROM position", nativeQuery = true)
-    List<Object> findLCATDescriptions();
+    List<String> findLCATDescriptions();
 
     @Query(value = "SELECT V_LCATLevelDescription_PO FROM position WHERE V_LCATDescription_PO = :lcatDescription", nativeQuery = true)
-    List<Object> findLCATLevels(@Param("lcatDescription") String lcatDescription);
+    List<String> findLCATLevels(@Param("lcatDescription") Object lcatDescription);
 }
