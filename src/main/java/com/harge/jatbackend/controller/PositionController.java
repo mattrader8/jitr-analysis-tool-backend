@@ -55,6 +55,25 @@ public class PositionController
         return lcatLevels;
     }
 
+    // get Position by LCAT and LCAT Level descriptions
+    @GetMapping("/positions/{lcatDescription}/{lcatLevelDescription}")
+    public int getPositionIDByLCATAndLevelDescriptions(@PathVariable("lcatDescription") String lcatDescription, @PathVariable("lcatLevelDescription") String lcatLevelDescription)
+    {
+        int positionID = 0;
+
+        try
+        {
+            positionID = positionRepository.findPositionIDByLCATAndLevelDescription(lcatDescription, lcatLevelDescription);
+        }
+
+        catch (ResourceNotFoundException ex) 
+        {
+            ex.getMessage();
+        }
+
+        return positionID;
+    }
+
     // add Position
     @PostMapping("/positions")
     public Position addPosition(@RequestBody Position position)
