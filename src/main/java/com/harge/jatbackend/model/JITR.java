@@ -44,10 +44,7 @@ public class JITR
     private JITROrganization jitrOrganization;
 
     @OneToMany(mappedBy = "jitr")
-    private List<JITRLCATs> jitrLCATs;
-
-    @OneToMany(mappedBy = "jitr")
-    private List<JITRLCATLevels> jitrLCATLevels;
+    private List<JITRPositions> jitrPositions;
 
     public JITR()
     {
