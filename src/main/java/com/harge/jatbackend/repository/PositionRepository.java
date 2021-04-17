@@ -14,7 +14,10 @@ public interface PositionRepository extends JpaRepository<Position, Long>
     List<String> findLCATDescriptions();
 
     @Query(value = "SELECT V_LCATLevelDescription_PO FROM position WHERE V_LCATDescription_PO = :lcatDescription", nativeQuery = true)
-    List<String> findLCATLevels(@Param("lcatDescription") Object lcatDescription);
+    List<String> findLCATLevelsForCancelledJITRs(@Param("lcatDescription") String lcatDescription);
+
+    @Query(value = "SELECT V_LCATLevelDescription_PO FROM position WHERE V_LCATDescription_PO = :lcatDescription AND V_LCATLevelDescription_PO <> 'Not Applicable'", nativeQuery = true)
+    List<String> findLCATLevelsForActiveJITRs(@Param("lcatDescription") String lcatDescription);
 
     @Query(value = "SELECT C_PositionID_PO FROM position WHERE V_LCATDescription_PO = :lcatDescription AND V_LCATLevelDescription_PO = :lcatLevelDescription", nativeQuery = true)
     int findPositionIDByLCATAndLevelDescription(@Param("lcatDescription") String lcatDescription, @Param("lcatLevelDescription") String lcatLevelDescription);

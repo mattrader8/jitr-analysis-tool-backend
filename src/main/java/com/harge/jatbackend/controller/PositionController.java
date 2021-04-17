@@ -37,14 +37,32 @@ public class PositionController
         return positionRepository.findLCATDescriptions();
     }
 
-    // get LCAT Levels by LCAT Description
-    @GetMapping("/positions/{lcatDescription}")
-    public List<String> getLCATLevelsByLCATDescription(@PathVariable Object lcatDescription)
+    // get LCAT Levels by LCAT Description for cancelled JITRs
+    @GetMapping("/positions/cancelled/{lcatDescription}")
+    public List<String> getLCATLevelsByLCATDescriptionForCancelledJITRs(@PathVariable String lcatDescription)
     {
         List<String> lcatLevels = null;
         try 
         {
-            lcatLevels = positionRepository.findLCATLevels(lcatDescription);
+            lcatLevels = positionRepository.findLCATLevelsForCancelledJITRs(lcatDescription);
+        }
+        
+        catch (ResourceNotFoundException ex) 
+        {
+            ex.getMessage();
+        }
+
+        return lcatLevels;
+    }
+
+    // get LCAT Levels by LCAT Description for active JITRs (awarded, declined)
+    @GetMapping("/positions/{lcatDescription}")
+    public List<String> getLCATLevelsByLCATDescriptionForActiveJITRs(@PathVariable String lcatDescription)
+    {
+        List<String> lcatLevels = null;
+        try 
+        {
+            lcatLevels = positionRepository.findLCATLevelsForActiveJITRs(lcatDescription);
         }
         
         catch (ResourceNotFoundException ex) 
