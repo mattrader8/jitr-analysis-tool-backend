@@ -15,7 +15,7 @@ public class JITRPositions
     @Column(name = "C_JITRPositionID_JP", unique = true, nullable = false)
     private String jitrPositionID;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "C_JITRNumber_JP", nullable = false)
     JITR jitr;
 

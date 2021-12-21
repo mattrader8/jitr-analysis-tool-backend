@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +46,25 @@ public class JITRController
         JITR jitr = jitrRepository.findById(jitrNumber)
             .orElseThrow(() -> new ResourceNotFoundException("Jitr does not exist with number :" + jitrNumber));
         return ResponseEntity.ok(jitr);
+    }
+
+    // update JITR
+    @PutMapping("/jitrs/{jitrNumber}")
+    public ResponseEntity<JITR> updateJITR(@PathVariable int jitrNumber, @RequestBody JITR jitrDetails)
+    {
+        JITR jitr = jitrRepository.findById(jitrNumber)
+            .orElseThrow(() -> new ResourceNotFoundException("Employee does not exist with id :" + jitrNumber));
+        jitr.setJitrDate(jitrDetails.getJitrDate());
+        jitr.setNumberOfFTE(jitrDetails.getNumberOfFTE());
+        jitr.setJitrStatus(jitrDetails.getJitrStatus());
+        jitr.setJitrRating(jitrDetails.getJitrRating());
+        jitr.setPraxisEstimatedCost(jitrDetails.getPraxisEstimatedCost());
+        jitr.setWinningPrimeEstimatedCost(jitrDetails.getWinningPrimeEstimatedCost());
+        jitr.setJitrOrganization(jitrDetails.getJitrOrganization());
+
+        JITR updatedJitr = jitrRepository.save(jitr);
+
+        return ResponseEntity.ok(updatedJitr);
     }
 
     // get Declined JITRs
