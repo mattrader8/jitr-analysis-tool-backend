@@ -1,6 +1,8 @@
 package com.harge.jatbackend.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.harge.jatbackend.exception.ResourceNotFoundException;
 import com.harge.jatbackend.model.JITR;
@@ -9,6 +11,7 @@ import com.harge.jatbackend.repository.JITRRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,6 +68,19 @@ public class JITRController
         JITR updatedJitr = jitrRepository.save(jitr);
 
         return ResponseEntity.ok(updatedJitr);
+    }
+
+    // delete JITR
+    @DeleteMapping("/jitrs/{jitrNumber}")
+    public ResponseEntity<Map<String, Boolean>> deleteJITR(@PathVariable int jitrNumber)
+    {
+        JITR jitr = jitrRepository.findById(jitrNumber)
+            .orElseThrow(() -> new ResourceNotFoundException("JITR does not exist with JITR Number :" + jitrNumber));
+        
+        jitrRepository.delete(jitr);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
     }
 
     // get Declined JITRs
