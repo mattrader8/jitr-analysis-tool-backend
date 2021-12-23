@@ -7,10 +7,12 @@ import com.harge.jatbackend.model.JITRPositions;
 import com.harge.jatbackend.repository.JITRPositionsRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,4 +56,18 @@ public class JITRPositionsController
     {
         return jitrPositionsRepository.save(jitrPositions);
     }
+
+    // update JITR Position
+    @PutMapping("/jitr-positions/{jitrPositionID}")
+    public ResponseEntity<JITRPositions> updateJITR(@PathVariable String jitrPositionID, @RequestBody JITRPositions jitrPositionDetails)
+    {
+        JITRPositions jitrPosition = jitrPositionsRepository.findById(jitrPositionID)
+            .orElseThrow(() -> new ResourceNotFoundException("JITR Position does not exist with id :" + jitrPositionID));
+        jitrPosition.setPosition(jitrPositionDetails.getPosition());
+
+        JITRPositions updatedJitrPosition = jitrPositionsRepository.save(jitrPosition);
+
+        return ResponseEntity.ok(updatedJitrPosition);
+    }
+
 }
