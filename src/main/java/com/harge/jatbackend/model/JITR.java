@@ -3,6 +3,7 @@ package com.harge.jatbackend.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -43,7 +44,7 @@ public class JITR
     @JoinColumn(name = "C_OrganizationID_JI", nullable = false)
     private JITROrganization jitrOrganization;
 
-    @OneToMany(mappedBy = "jitr")
+    @OneToMany(mappedBy = "jitr", cascade = CascadeType.ALL)
     private List<JITRPositions> jitrPositions;
 
     public JITR()
