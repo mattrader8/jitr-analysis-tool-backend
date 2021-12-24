@@ -90,7 +90,7 @@ public class JITRController
         return jitrRepository.findDeclinedJITRs();
     }
 
-    // get Declined JITRs
+    // get Average Cost Difference
     @GetMapping("/jitrs/average-cost-difference")
     public double getAverageCostDifference()
     {
