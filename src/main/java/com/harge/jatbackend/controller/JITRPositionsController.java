@@ -65,7 +65,7 @@ public class JITRPositionsController
     public ResponseEntity<JITRPositions> updateJITR(@PathVariable String jitrPositionID, @RequestBody JITRPositions jitrPositionDetails)
     {
         JITRPositions jitrPosition = jitrPositionsRepository.findById(jitrPositionID)
-            .orElseThrow(() -> new ResourceNotFoundException("JITR Position does not exist with id :" + jitrPositionID));
+            .orElseThrow(() -> new ResourceNotFoundException("JITR Position does not exist with JITR Position ID :" + jitrPositionID));
         jitrPosition.setPosition(jitrPositionDetails.getPosition());
 
         JITRPositions updatedJitrPosition = jitrPositionsRepository.save(jitrPosition);
@@ -78,7 +78,7 @@ public class JITRPositionsController
     public ResponseEntity<Map<String, Boolean>> deleteJITRPosition(@PathVariable String jitrPositionID)
     {
         JITRPositions jitrPosition = jitrPositionsRepository.findById(jitrPositionID)
-            .orElseThrow(() -> new ResourceNotFoundException("JITR does not exist with JITR Number :" + jitrPositionID));
+            .orElseThrow(() -> new ResourceNotFoundException("JITR does not exist with JITR Position ID :" + jitrPositionID));
         
         jitrPositionsRepository.delete(jitrPosition);
         Map<String, Boolean> response = new HashMap<>();

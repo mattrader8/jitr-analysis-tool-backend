@@ -47,7 +47,7 @@ public class JITRController
     public ResponseEntity<JITR> getJITRByNumber(@PathVariable int jitrNumber)
     {
         JITR jitr = jitrRepository.findById(jitrNumber)
-            .orElseThrow(() -> new ResourceNotFoundException("JITR does not exist with number :" + jitrNumber));
+            .orElseThrow(() -> new ResourceNotFoundException("JITR does not exist with JITR Number :" + jitrNumber));
         return ResponseEntity.ok(jitr);
     }
 
@@ -56,7 +56,7 @@ public class JITRController
     public ResponseEntity<JITR> updateJITR(@PathVariable int jitrNumber, @RequestBody JITR jitrDetails)
     {
         JITR jitr = jitrRepository.findById(jitrNumber)
-            .orElseThrow(() -> new ResourceNotFoundException("JITR does not exist with id :" + jitrNumber));
+            .orElseThrow(() -> new ResourceNotFoundException("JITR does not exist with JITR Number :" + jitrNumber));
         jitr.setJitrDate(jitrDetails.getJitrDate());
         jitr.setNumberOfFTE(jitrDetails.getNumberOfFTE());
         jitr.setJitrStatus(jitrDetails.getJitrStatus());
