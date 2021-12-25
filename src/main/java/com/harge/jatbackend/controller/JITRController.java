@@ -94,6 +94,16 @@ public class JITRController
     @GetMapping("/jitrs/average-cost-difference")
     public double getAverageCostDifference()
     {
-        return jitrRepository.getAverageCostDifference();
+        List<JITR> jitrList = getDeclinedJITRs();
+
+        if (jitrList.isEmpty())
+        {
+            return 0.0;
+        }
+
+        else
+        {
+            return jitrRepository.getAverageCostDifference();
+        }
     }
 }
