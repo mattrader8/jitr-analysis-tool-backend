@@ -39,18 +39,21 @@ public class JITRPositionsController
     @GetMapping("/jitr-positions/{jitrNumber}")
     public List<JITRPositions> getJITRByNumber(@PathVariable int jitrNumber)
     {
-        List<JITRPositions> jitrPositions = null;
-        try 
+        List<JITRPositions> jitrPositionsList = null;
+
+        Integer jitrNumberFromDatabase = jitrPositionsRepository.checkJITRExistsByJITRNumber(jitrNumber);
+
+        if (jitrNumberFromDatabase == null)
         {
-            jitrPositions = jitrPositionsRepository.findByJITRNumber(jitrNumber);
-        }
-        
-        catch (ResourceNotFoundException ex) 
-        {
-            ex.getMessage();
+            throw new ResourceNotFoundException("JITR does not exist with JITR Number :" + jitrNumber);
         }
 
-        return jitrPositions;
+        else
+        {
+            jitrPositionsList = jitrPositionsRepository.findByJITRNumber(jitrNumber);
+        }
+
+        return jitrPositionsList;
     }
 
     // add JITR Position
