@@ -42,32 +42,38 @@ public class PositionController
     public List<String> getLCATLevelsByLCATDescriptionForCancelledJITRs(@PathVariable String lcatDescription)
     {
         List<String> lcatLevels = null;
-        try 
+
+        List<Position> positionList = positionRepository.findPositionsByLCATDescription(lcatDescription);
+
+        if (positionList.isEmpty())
+        {
+            throw new ResourceNotFoundException("Position does not exist with LCAT Description :" + lcatDescription);
+        }
+
+        else
         {
             lcatLevels = positionRepository.findLCATLevelsForCancelledJITRs(lcatDescription);
-        }
-        
-        catch (ResourceNotFoundException ex) 
-        {
-            ex.getMessage();
         }
 
         return lcatLevels;
     }
 
-    // get LCAT Levels by LCAT Description for active JITRs (awarded, declined)
+    // get LCAT Levels by LCAT Description for active JITRs ('Awarded' and 'Declined' JITR Statuses)
     @GetMapping("/positions/{lcatDescription}")
     public List<String> getLCATLevelsByLCATDescriptionForActiveJITRs(@PathVariable String lcatDescription)
     {
         List<String> lcatLevels = null;
-        try 
+        
+        List<Position> positionList = positionRepository.findPositionsByLCATDescription(lcatDescription);
+
+        if (positionList.isEmpty())
+        {
+            throw new ResourceNotFoundException("Position does not exist with LCAT Description :" + lcatDescription);
+        }
+
+        else
         {
             lcatLevels = positionRepository.findLCATLevelsForActiveJITRs(lcatDescription);
-        }
-        
-        catch (ResourceNotFoundException ex) 
-        {
-            ex.getMessage();
         }
 
         return lcatLevels;
@@ -75,18 +81,13 @@ public class PositionController
 
     // get Position by LCAT and LCAT Level descriptions
     @GetMapping("/positions/{lcatDescription}/{lcatLevelDescription}")
-    public int getPositionIDByLCATAndLevelDescriptions(@PathVariable("lcatDescription") String lcatDescription, @PathVariable("lcatLevelDescription") String lcatLevelDescription)
+    public Integer getPositionIDByLCATAndLevelDescriptions(@PathVariable("lcatDescription") String lcatDescription, @PathVariable("lcatLevelDescription") String lcatLevelDescription)
     {
-        int positionID = 0;
+        Integer positionID = positionRepository.findPositionIDByLCATAndLevelDescription(lcatDescription, lcatLevelDescription);
 
-        try
+        if (positionID == null)
         {
-            positionID = positionRepository.findPositionIDByLCATAndLevelDescription(lcatDescription, lcatLevelDescription);
-        }
-
-        catch (ResourceNotFoundException ex) 
-        {
-            ex.getMessage();
+            throw new ResourceNotFoundException("Position ID does not exist with LCAT Description :" + lcatDescription + " and LCAT Level Description: " + lcatLevelDescription);
         }
 
         return positionID;
