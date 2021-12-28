@@ -3,8 +3,7 @@ package com.harge.jatbackend.controller;
 import java.util.List;
 
 import com.harge.jatbackend.model.JITRStatus;
-import com.harge.jatbackend.repository.JITRStatusRepository;
-
+import com.harge.jatbackend.service.JITRStatusService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,19 +19,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class JITRStatusController 
 {
     @Autowired
-    private JITRStatusRepository jitrStatusRepository;
+    private JITRStatusService jitrStatusService;
 
     // get all JITR Statuses
     @GetMapping("/jitr-statuses")
     public List<JITRStatus> getAllJiTRStatuses()
     {
-        return jitrStatusRepository.findAll();
+        return jitrStatusService.findAllJITRStatuses();
     }
 
     // add JITR Status
     @PostMapping("/jitr-statuses")
     public JITRStatus addJITRStatus(@RequestBody JITRStatus jitrStatus)
     {
-        return jitrStatusRepository.save(jitrStatus);
+        return jitrStatusService.saveJITRStatus(jitrStatus);
     }
 }

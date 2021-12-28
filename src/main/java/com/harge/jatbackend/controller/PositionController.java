@@ -2,9 +2,8 @@ package com.harge.jatbackend.controller;
 
 import java.util.List;
 
-import com.harge.jatbackend.exception.ResourceNotFoundException;
 import com.harge.jatbackend.model.Position;
-import com.harge.jatbackend.repository.PositionRepository;
+import com.harge.jatbackend.service.PositionService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,81 +20,47 @@ import org.springframework.web.bind.annotation.RestController;
 public class PositionController 
 {
     @Autowired
-    private PositionRepository positionRepository;
+    private PositionService positionService;
 
     // get all Positions
     @GetMapping("/positions")
     public List<Position> getAllPositions()
     {
-        return positionRepository.findAll();
+        return positionService.findAllPositions();
     }
 
-    // get distinct LCATs
+    // get distinct LCAT Descriptions
     @GetMapping("/positions/lcats")
     public List<String> getDistinctLCATDescriptions() 
     {
-        return positionRepository.findLCATDescriptions();
+        return positionService.findDistinctLCATDescriptions();
     }
 
-    // get LCAT Levels by LCAT Description for cancelled JITRs
+    // get LCAT Levels by LCAT Description for "Cancelled" JITRs
     @GetMapping("/positions/cancelled/{lcatDescription}")
     public List<String> getLCATLevelsByLCATDescriptionForCancelledJITRs(@PathVariable String lcatDescription)
     {
-        List<String> lcatLevels = null;
-        try 
-        {
-            lcatLevels = positionRepository.findLCATLevelsForCancelledJITRs(lcatDescription);
-        }
-        
-        catch (ResourceNotFoundException ex) 
-        {
-            ex.getMessage();
-        }
-
-        return lcatLevels;
+        return positionService.findLCATLevelsByLCATDescriptionForCancelledJITRs(lcatDescription);
     }
 
-    // get LCAT Levels by LCAT Description for active JITRs (awarded, declined)
+    // get LCAT Levels by LCAT Description for active JITRs ('Awarded' and 'Declined' JITR Statuses)
     @GetMapping("/positions/{lcatDescription}")
     public List<String> getLCATLevelsByLCATDescriptionForActiveJITRs(@PathVariable String lcatDescription)
     {
-        List<String> lcatLevels = null;
-        try 
-        {
-            lcatLevels = positionRepository.findLCATLevelsForActiveJITRs(lcatDescription);
-        }
-        
-        catch (ResourceNotFoundException ex) 
-        {
-            ex.getMessage();
-        }
-
-        return lcatLevels;
+        return positionService.findLCATLevelsByLCATDescriptionForActiveJITRs(lcatDescription);
     }
 
     // get Position by LCAT and LCAT Level descriptions
     @GetMapping("/positions/{lcatDescription}/{lcatLevelDescription}")
-    public int getPositionIDByLCATAndLevelDescriptions(@PathVariable("lcatDescription") String lcatDescription, @PathVariable("lcatLevelDescription") String lcatLevelDescription)
+    public Integer getPositionIDByLCATAndLevelDescriptions(@PathVariable("lcatDescription") String lcatDescription, @PathVariable("lcatLevelDescription") String lcatLevelDescription)
     {
-        int positionID = 0;
-
-        try
-        {
-            positionID = positionRepository.findPositionIDByLCATAndLevelDescription(lcatDescription, lcatLevelDescription);
-        }
-
-        catch (ResourceNotFoundException ex) 
-        {
-            ex.getMessage();
-        }
-
-        return positionID;
+        return positionService.findPositionIDByLCATAndLevelDescriptions(lcatDescription, lcatLevelDescription);
     }
 
     // add Position
     @PostMapping("/positions")
     public Position addPosition(@RequestBody Position position)
     {
-        return positionRepository.save(position);
+        return positionService.savePosition(position);
     }
 }
