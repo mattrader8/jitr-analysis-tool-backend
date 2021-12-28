@@ -1,12 +1,10 @@
 package com.harge.jatbackend.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.harge.jatbackend.exception.ResourceNotFoundException;
 import com.harge.jatbackend.model.JITRPositions;
-import com.harge.jatbackend.repository.JITRPositionsRepository;
+import com.harge.jatbackend.service.JITRPositionsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,66 +24,40 @@ import org.springframework.web.bind.annotation.RestController;
 public class JITRPositionsController 
 {
     @Autowired
-    private JITRPositionsRepository jitrPositionsRepository;
+    private JITRPositionsService jitrPositionsService;
 
     // get all JITR Positions
     @GetMapping("/jitr-positions")
     public List<JITRPositions> getAllJITRPositions()
     {
-        return jitrPositionsRepository.findAll();
+        return jitrPositionsService.findAllJITRPositions();
     }
 
     // get JITR Positions by JITR number
     @GetMapping("/jitr-positions/{jitrNumber}")
     public List<JITRPositions> getJITRByNumber(@PathVariable int jitrNumber)
     {
-        List<JITRPositions> jitrPositionsList = null;
-
-        Integer jitrNumberFromDatabase = jitrPositionsRepository.checkJITRExistsByJITRNumber(jitrNumber);
-
-        if (jitrNumberFromDatabase == null)
-        {
-            throw new ResourceNotFoundException("JITR does not exist with JITR Number :" + jitrNumber);
-        }
-
-        else
-        {
-            jitrPositionsList = jitrPositionsRepository.findByJITRNumber(jitrNumber);
-        }
-
-        return jitrPositionsList;
+        return jitrPositionsService.findJITRByJITRNumber(jitrNumber);
     }
 
     // add JITR Position
     @PostMapping("/jitr-positions")
     public JITRPositions addJITRPositions(@RequestBody JITRPositions jitrPositions)
     {
-        return jitrPositionsRepository.save(jitrPositions);
+        return jitrPositionsService.saveJITRPosition(jitrPositions);
     }
 
     // update JITR Position
     @PutMapping("/jitr-positions/{jitrPositionID}")
-    public ResponseEntity<JITRPositions> updateJITR(@PathVariable String jitrPositionID, @RequestBody JITRPositions jitrPositionDetails)
+    public ResponseEntity<JITRPositions> updateJITRPosition(@PathVariable String jitrPositionID, @RequestBody JITRPositions jitrPositionDetails)
     {
-        JITRPositions jitrPosition = jitrPositionsRepository.findById(jitrPositionID)
-            .orElseThrow(() -> new ResourceNotFoundException("JITR Position does not exist with JITR Position ID :" + jitrPositionID));
-        jitrPosition.setPosition(jitrPositionDetails.getPosition());
-
-        JITRPositions updatedJitrPosition = jitrPositionsRepository.save(jitrPosition);
-
-        return ResponseEntity.ok(updatedJitrPosition);
+        return jitrPositionsService.updateJITRPosition(jitrPositionID, jitrPositionDetails);
     }
 
     // delete JITR Position
     @DeleteMapping("/jitr-positions/{jitrPositionID}")
     public ResponseEntity<Map<String, Boolean>> deleteJITRPosition(@PathVariable String jitrPositionID)
     {
-        JITRPositions jitrPosition = jitrPositionsRepository.findById(jitrPositionID)
-            .orElseThrow(() -> new ResourceNotFoundException("JITR does not exist with JITR Position ID :" + jitrPositionID));
-        
-        jitrPositionsRepository.delete(jitrPosition);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return ResponseEntity.ok(response);
+        return jitrPositionsService.deleteJITRPosition(jitrPositionID);
     }
 }
