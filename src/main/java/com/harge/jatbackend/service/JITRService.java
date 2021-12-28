@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.harge.jatbackend.exception.ApiException;
 import com.harge.jatbackend.exception.ResourceNotFoundException;
 import com.harge.jatbackend.model.JITR;
 import com.harge.jatbackend.repository.JITRRepository;
@@ -27,7 +28,30 @@ public class JITRService
     // save JITR
     public JITR saveJITR(JITR jitr)
     {
-        return jitrRepository.save(jitr);
+        if (jitr.getJitrNumber() < 0)
+        {
+            throw new ApiException.InvalidParameter("Invalid JITR Number.");
+        }
+
+        else if (jitr.getNumberOfFTE() < 0)
+        {
+            throw new ApiException.InvalidParameter("Invalid Number of FTE.");
+        }
+
+        else if (jitr.getPraxisEstimatedCost() < 0)
+        {
+            throw new ApiException.InvalidParameter("Invalid Praxis Estimated Cost.");
+        }
+
+        else if (jitr.getWinningPrimeEstimatedCost() < 0)
+        {
+            throw new ApiException.InvalidParameter("Invalid Winning Prime Estimated Cost.");
+        }
+
+        else
+        {
+            return jitrRepository.save(jitr);
+        }
     }
 
     // find JITR by JITR Number
