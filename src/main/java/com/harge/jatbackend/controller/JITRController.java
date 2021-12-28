@@ -1,12 +1,10 @@
 package com.harge.jatbackend.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.harge.jatbackend.exception.ResourceNotFoundException;
 import com.harge.jatbackend.model.JITR;
-import com.harge.jatbackend.repository.JITRRepository;
+import com.harge.jatbackend.service.JITRService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,74 +24,54 @@ import org.springframework.web.bind.annotation.RestController;
 public class JITRController 
 {
     @Autowired
-    private JITRRepository jitrRepository;
+    private JITRService jitrService;
 
     // get all JITRs
     @GetMapping("/jitrs")
-    public List<JITR> getAllJiTRs()
+    public List<JITR> getAllJITRs()
     {
-        return jitrRepository.findAll();
+        return jitrService.findAllJITRs();
     }
 
     // add JITR
     @PostMapping("/jitrs")
     public JITR addJITR(@RequestBody JITR jitr)
     {
-        return jitrRepository.save(jitr);
+        return jitrService.saveJITR(jitr);
     }
 
-    // get JITR by number
+    // get JITR by JITR Number
     @GetMapping("/jitrs/{jitrNumber}")
-    public ResponseEntity<JITR> getJITRByNumber(@PathVariable int jitrNumber)
+    public ResponseEntity<JITR> getJITRByJITRNumber(@PathVariable int jitrNumber)
     {
-        JITR jitr = jitrRepository.findById(jitrNumber)
-            .orElseThrow(() -> new ResourceNotFoundException("JITR does not exist with number :" + jitrNumber));
-        return ResponseEntity.ok(jitr);
+        return jitrService.findJITRByJITRNumber(jitrNumber);
     }
 
     // update JITR
     @PutMapping("/jitrs/{jitrNumber}")
     public ResponseEntity<JITR> updateJITR(@PathVariable int jitrNumber, @RequestBody JITR jitrDetails)
     {
-        JITR jitr = jitrRepository.findById(jitrNumber)
-            .orElseThrow(() -> new ResourceNotFoundException("JITR does not exist with id :" + jitrNumber));
-        jitr.setJitrDate(jitrDetails.getJitrDate());
-        jitr.setNumberOfFTE(jitrDetails.getNumberOfFTE());
-        jitr.setJitrStatus(jitrDetails.getJitrStatus());
-        jitr.setJitrRating(jitrDetails.getJitrRating());
-        jitr.setPraxisEstimatedCost(jitrDetails.getPraxisEstimatedCost());
-        jitr.setWinningPrimeEstimatedCost(jitrDetails.getWinningPrimeEstimatedCost());
-        jitr.setJitrOrganization(jitrDetails.getJitrOrganization());
-
-        JITR updatedJitr = jitrRepository.save(jitr);
-
-        return ResponseEntity.ok(updatedJitr);
+        return jitrService.updateJITR(jitrNumber, jitrDetails);
     }
 
     // delete JITR
     @DeleteMapping("/jitrs/{jitrNumber}")
     public ResponseEntity<Map<String, Boolean>> deleteJITR(@PathVariable int jitrNumber)
     {
-        JITR jitr = jitrRepository.findById(jitrNumber)
-            .orElseThrow(() -> new ResourceNotFoundException("JITR does not exist with JITR Number :" + jitrNumber));
-        
-        jitrRepository.delete(jitr);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return ResponseEntity.ok(response);
+        return jitrService.deleteJITR(jitrNumber);
     }
 
-    // get Declined JITRs
+    // get Declined JITRs (excludes JITRs without Praxis/Winning Prime costs)
     @GetMapping("/jitrs/declined-jitrs")
     public List<JITR> getDeclinedJITRs()
     {
-        return jitrRepository.findDeclinedJITRs();
+        return jitrService.findDeclinedJITRs();
     }
 
     // get Average Cost Difference
     @GetMapping("/jitrs/average-cost-difference")
     public double getAverageCostDifference()
     {
-        return jitrRepository.getAverageCostDifference();
+        return jitrService.findAverageCostDifference();
     }
 }

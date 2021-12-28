@@ -3,7 +3,7 @@ package com.harge.jatbackend.controller;
 import java.util.List;
 
 import com.harge.jatbackend.model.JITRRating;
-import com.harge.jatbackend.repository.JITRRatingRepository;
+import com.harge.jatbackend.service.JITRRatingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,19 +19,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class JITRRatingController 
 {
     @Autowired
-    private JITRRatingRepository jitrRatingRepository;
+    private JITRRatingService jitrRatingService;
 
     // get all JITR Ratings
     @GetMapping("/jitr-ratings")
-    public List<JITRRating> getAllJiTRRatings()
+    public List<JITRRating> getAllJITRRatings()
     {
-        return jitrRatingRepository.findAll();
+        return jitrRatingService.findAllJITRRatings();
     }
 
     // add JITR Rating
     @PostMapping("/jitr-ratings")
     public JITRRating addJITRRating(@RequestBody JITRRating jitrRating)
     {
-        return jitrRatingRepository.save(jitrRating);
+        return jitrRatingService.saveJITRRating(jitrRating);
     }
 }

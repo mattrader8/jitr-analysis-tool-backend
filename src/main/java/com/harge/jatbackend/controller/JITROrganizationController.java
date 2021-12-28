@@ -3,7 +3,7 @@ package com.harge.jatbackend.controller;
 import java.util.List;
 
 import com.harge.jatbackend.model.JITROrganization;
-import com.harge.jatbackend.repository.JITROrganizationRepository;
+import com.harge.jatbackend.service.JITROrganizationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class JITROrganizationController 
 {
     @Autowired
-    private JITROrganizationRepository jitrOrganizationRepository;
+    private JITROrganizationService jitrOrganizationService;
 
     // get all JITR Organizations
     @GetMapping("/jitr-organizations")
-    public List<JITROrganization> getAllJiTROrganizations()
+    public List<JITROrganization> getAllJITROrganizations()
     {
-        return jitrOrganizationRepository.findAll();
+        return jitrOrganizationService.findAllJITROrganizations();
     }
 }
