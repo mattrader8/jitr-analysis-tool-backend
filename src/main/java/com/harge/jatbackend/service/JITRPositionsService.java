@@ -25,7 +25,7 @@ public class JITRPositionsService
     }
 
     // find JITR Positions by JITR number
-    public List<JITRPositions> findJITRByJITRNumber(int jitrNumber)
+    public List<JITRPositions> findJITRPositionsByJITRNumber(int jitrNumber)
     {
         List<JITRPositions> jitrPositionsList = null;
 
