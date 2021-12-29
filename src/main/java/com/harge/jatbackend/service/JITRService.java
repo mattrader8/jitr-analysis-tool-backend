@@ -65,6 +65,8 @@ public class JITRService
     // update JITR
     public ResponseEntity<JITR> updateJITR(int jitrNumber, JITR jitrDetails)
     {
+        JITR updatedJitr = null;
+
         JITR jitr = jitrRepository.findById(jitrNumber)
             .orElseThrow(() -> new ResourceNotFoundException("JITR does not exist with JITR Number :" + jitrNumber));
         jitr.setJitrDate(jitrDetails.getJitrDate());
@@ -75,7 +77,25 @@ public class JITRService
         jitr.setWinningPrimeEstimatedCost(jitrDetails.getWinningPrimeEstimatedCost());
         jitr.setJitrOrganization(jitrDetails.getJitrOrganization());
 
-        JITR updatedJitr = jitrRepository.save(jitr);
+        if (jitrDetails.getNumberOfFTE() < 0)
+        {
+            throw new ApiException.InvalidParameter("Invalid Number of FTE.");
+        }
+
+        else if (jitrDetails.getPraxisEstimatedCost() < 0)
+        {
+            throw new ApiException.InvalidParameter("Invalid Praxis Estimated Cost.");
+        }
+
+        else if (jitrDetails.getWinningPrimeEstimatedCost() < 0)
+        {
+            throw new ApiException.InvalidParameter("Invalid Winning Prime Estimated Cost.");
+        }
+
+        else 
+        {
+            updatedJitr = jitrRepository.save(jitr);
+        }
 
         return ResponseEntity.ok(updatedJitr);
     }

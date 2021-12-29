@@ -23,7 +23,7 @@ public class JITRStatusController
 
     // get all JITR Statuses
     @GetMapping("/jitr-statuses")
-    public List<JITRStatus> getAllJiTRStatuses()
+    public List<JITRStatus> getAllJITRStatuses()
     {
         return jitrStatusService.findAllJITRStatuses();
     }
