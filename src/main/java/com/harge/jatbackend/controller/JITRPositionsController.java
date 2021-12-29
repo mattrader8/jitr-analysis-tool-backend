@@ -35,9 +35,9 @@ public class JITRPositionsController
 
     // get JITR Positions by JITR number
     @GetMapping("/jitr-positions/{jitrNumber}")
-    public List<JITRPositions> getJITRByNumber(@PathVariable int jitrNumber)
+    public List<JITRPositions> getJITRPositionsByJITRNumber(@PathVariable int jitrNumber)
     {
-        return jitrPositionsService.findJITRByJITRNumber(jitrNumber);
+        return jitrPositionsService.findJITRPositionsByJITRNumber(jitrNumber);
     }
 
     // add JITR Position
