@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class JITRPositionsServiceTest 
+class JITRPositionsServiceTest 
 {
     @Autowired
     private JITRPositionsService jitrPositionsService;
@@ -30,7 +30,7 @@ public class JITRPositionsServiceTest
     /* --- TESTS FOR GET REQUEST METHODS --- */
 
     @Test
-    public void testFindAllPositions()
+    void findAllPositions()
     {
         List<JITRPositions> jitrPositionsList = jitrPositionsService.findAllJITRPositions();
 
@@ -38,7 +38,7 @@ public class JITRPositionsServiceTest
     }
 
     @Test
-    public void testFindJITRPositionsByJITRNumberWithValidJITRNumber()
+    void findJITRPositionsByJITRNumberWithValidJITRNumber()
     {
         int jitrNumber = 100;
 
@@ -56,7 +56,7 @@ public class JITRPositionsServiceTest
     }
 
     @Test
-    public void testFindJITRPositionsByJITRNumberwithInvalidJITRNumber()
+    void findJITRPositionsByJITRNumberwithInvalidJITRNumber()
     {
         int jitrNumber = -100;
 
@@ -74,7 +74,7 @@ public class JITRPositionsServiceTest
     /* --- TESTS FOR POST REQUEST METHODS --- */
 
     @Test
-    public void testSaveJITRPosition()
+    void saveJITRPosition()
     {
         // create JITR Position ID
         String jitrPositionID = UUID.randomUUID().toString();
@@ -125,7 +125,7 @@ public class JITRPositionsServiceTest
     /* --- TESTS FOR UPDATE REQUEST METHODS --- */
 
     @Test
-    public void testUpdateJITRPosition()
+    void updateJITRPosition()
     {
         // create JITR Position ID
         String jitrPositionID = UUID.randomUUID().toString();
@@ -186,7 +186,7 @@ public class JITRPositionsServiceTest
     /* --- TESTS FOR DELETE REQUEST METHODS --- */
 
     @Test
-    public void deleteJITRPosition()
+    void deleteJITRPosition()
     {
         // create JITR Position ID
         String jitrPositionID = UUID.randomUUID().toString();

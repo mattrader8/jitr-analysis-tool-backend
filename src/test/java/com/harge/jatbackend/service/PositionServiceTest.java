@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class PositionServiceTest 
+class PositionServiceTest 
 {
     @Autowired
     private PositionService positionService;
@@ -20,7 +20,7 @@ public class PositionServiceTest
     /* --- TESTS FOR GET REQUEST METHODS --- */
 
     @Test
-    public void testFindAllPositions()
+    void findAllPositions()
     {
         List<Position> positionList = positionService.findAllPositions();
 
@@ -28,7 +28,7 @@ public class PositionServiceTest
     }
 
     @Test
-    public void testFindDistinctLCATDescriptions()
+    void findDistinctLCATDescriptions()
     {
         List<String> lcatDescriptionList = positionService.findDistinctLCATDescriptions();
 
@@ -36,7 +36,7 @@ public class PositionServiceTest
     }
 
     @Test
-    public void testFindLCATLevelsByValidLCATDescriptionForCancelledJITRs()
+    void findLCATLevelsByValidLCATDescriptionForCancelledJITRs()
     {
         String lcatDescription = "Systems Engineer";
 
@@ -44,7 +44,7 @@ public class PositionServiceTest
     }
 
     @Test
-    public void testFindLCATLevelsByInvalidLCATDescriptionForCancelledJITRs()
+    void findLCATLevelsByInvalidLCATDescriptionForCancelledJITRs()
     {
         String lcatDescription = "System Engineer";
 
@@ -60,7 +60,7 @@ public class PositionServiceTest
     }
 
     @Test
-    public void testFindLCATLevelsByValidLCATDescriptionForActiveJITRs()
+    void findLCATLevelsByValidLCATDescriptionForActiveJITRs()
     {
         String lcatDescription = "Systems Engineer";
 
@@ -68,7 +68,7 @@ public class PositionServiceTest
     }
 
     @Test
-    public void testFindLCATLevelsByInvalidLCATDescriptionForActiveJITRs()
+    void findLCATLevelsByInvalidLCATDescriptionForActiveJITRs()
     {
         String lcatDescription = "System Engineer";
 
@@ -84,7 +84,7 @@ public class PositionServiceTest
     }
 
     @Test
-    public void testFindPositionIDByLCATAndLevelDescriptionsWithValidInputs()
+    void findPositionIDByLCATAndLevelDescriptionsWithValidInputs()
     {
         String lcatDescription = "Systems Engineer";
         String lcatLevelDescription = "Expert";
@@ -93,7 +93,7 @@ public class PositionServiceTest
     }
 
     @Test
-    public void testFindPositionIDByLCATAndLevelDescriptionsWithInvalidLCATDescription()
+    void findPositionIDByLCATAndLevelDescriptionsWithInvalidLCATDescription()
     {
         String lcatDescription = "System Engineer";
         String lcatLevelDescription = "Expert";
@@ -110,7 +110,7 @@ public class PositionServiceTest
     }
 
     @Test
-    public void testFindPositionIDByLCATAndLevelDescriptionsWithInvalidLCATLevelDescription()
+    void findPositionIDByLCATAndLevelDescriptionsWithInvalidLCATLevelDescription()
     {
         String lcatDescription = "Systems Engineer";
         String lcatLevelDescription = "Experrr";
@@ -129,7 +129,7 @@ public class PositionServiceTest
     /* --- TESTS FOR POST REQUEST METHODS --- */
 
     @Test
-    public void testSavePosition()
+    void savePosition()
     {
         Position position = new Position();
 

@@ -1,6 +1,6 @@
 package com.harge.jatbackend.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class JITRRatingControllerTest 
+class JITRRatingControllerTest 
 {
     /* --- TESTS FOR GET REQUEST METHODS --- */
 
@@ -19,7 +19,7 @@ public class JITRRatingControllerTest
     private JITRRatingController jitrRatingController;
 
     @Test
-    public void testFindAllJITRRatings()
+    void findAllJITRRatings()
     {
         List<JITRRating> jitrRatingList = jitrRatingController.getAllJITRRatings();
         
@@ -29,7 +29,7 @@ public class JITRRatingControllerTest
     /* --- TESTS FOR POST REQUEST METHODS --- */
 
     @Test
-    public void testSaveJITRRating()
+    void saveJITRRating()
     {
         JITRRating jitrRating = new JITRRating();
         jitrRating.setRatingDescription("Test");

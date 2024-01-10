@@ -52,7 +52,7 @@ public class PositionController
 
     // get Position by LCAT and LCAT Level descriptions
     @GetMapping("/positions/{lcatDescription}/{lcatLevelDescription}")
-    public Integer getPositionIDByLCATAndLevelDescriptions(@PathVariable("lcatDescription") String lcatDescription, @PathVariable("lcatLevelDescription") String lcatLevelDescription)
+    public Integer getPositionIDByLCATAndLevelDescriptions(@PathVariable String lcatDescription, @PathVariable String lcatLevelDescription)
     {
         return positionService.findPositionIDByLCATAndLevelDescriptions(lcatDescription, lcatLevelDescription);
     }

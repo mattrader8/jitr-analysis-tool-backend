@@ -1,6 +1,6 @@
 package com.harge.jatbackend.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class JITROrganizationControllerTest 
+class JITROrganizationControllerTest 
 {
     @Autowired
     private JITROrganizationController jitrOrganizationController;
@@ -19,7 +19,7 @@ public class JITROrganizationControllerTest
     /* --- TESTS FOR GET REQUEST METHODS --- */
 
     @Test
-    public void testGetAllJITROrganizations()
+    void getAllJITROrganizations()
     {
         List<JITROrganization> jitrOrganizationList = jitrOrganizationController.getAllJITROrganizations();
 

@@ -1,6 +1,6 @@
 package com.harge.jatbackend.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class JITRStatusControllerTest 
+class JITRStatusControllerTest 
 {
     @Autowired
     private JITRStatusController jitrStatusController;
@@ -19,7 +19,7 @@ public class JITRStatusControllerTest
     /* --- TESTS FOR GET REQUEST METHODS --- */
 
     @Test
-    public void testGetAllJITRStatuses()
+    void getAllJITRStatuses()
     {
         List<JITRStatus> jitrStatusList = jitrStatusController.getAllJITRStatuses();
 
@@ -29,7 +29,7 @@ public class JITRStatusControllerTest
     /* --- TESTS FOR POST REQUEST METHODS --- */
 
     @Test
-    public void testAddJITRStatus()
+    void addJITRStatus()
     {
         JITRStatus jitrStatus = new JITRStatus();
         jitrStatus.setStatusDescription("Test");

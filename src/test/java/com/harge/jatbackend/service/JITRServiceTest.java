@@ -18,7 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
 @SpringBootTest
-public class JITRServiceTest 
+class JITRServiceTest 
 {
     @Autowired
     private JITRService jitrService;
@@ -26,7 +26,7 @@ public class JITRServiceTest
     /* --- TESTS FOR GET REQUEST METHODS --- */
 
     @Test
-    public void testFindAllJITRs()
+    void findAllJITRs()
     {
         List<JITR> jitrList = jitrService.findAllJITRs();
 
@@ -44,7 +44,7 @@ public class JITRServiceTest
     }
 
     @Test
-    public void testFindJITRByJITRNumberWithExistingJITRNumber()
+    void findJITRByJITRNumberWithExistingJITRNumber()
     {
         int jitrNumber = 100;
 
@@ -55,7 +55,7 @@ public class JITRServiceTest
     }
 
     @Test
-    public void testFindJITRByJITRNumberWithNonExistingJITRNumber()
+    void findJITRByJITRNumberWithNonExistingJITRNumber()
     {
         int jitrNumber = 10001;
 
@@ -71,7 +71,7 @@ public class JITRServiceTest
     }
 
     @Test
-    public void testFindDeclinedJITRs()
+    void findDeclinedJITRs()
     {
         List<JITR> jitrList = jitrService.findDeclinedJITRs();
 
@@ -89,7 +89,7 @@ public class JITRServiceTest
     }
 
     @Test
-    public void testFindAverageCostDifference()
+    void findAverageCostDifference()
     {
         List<JITR> jitrList = jitrService.findDeclinedJITRs();
 
@@ -107,7 +107,7 @@ public class JITRServiceTest
     /* --- TESTS FOR POST REQUEST METHODS --- */
 
     @Test
-    public void testSaveJITRWithValidInputs()
+    void saveJITRWithValidInputs()
     {
         JITR jitr = new JITR();
 
@@ -136,7 +136,7 @@ public class JITRServiceTest
     }
 
     @Test()
-    public void testSaveJITRWithInvalidJITRNumber()
+    void saveJITRWithInvalidJITRNumber()
     {
         JITR jitr = new JITR();
 
@@ -173,7 +173,7 @@ public class JITRServiceTest
     }
 
     @Test()
-    public void testSaveJITRWithInvalidNumberOfFTE()
+    void saveJITRWithInvalidNumberOfFTE()
     {
         JITR jitr = new JITR();
 
@@ -210,7 +210,7 @@ public class JITRServiceTest
     }
 
     @Test()
-    public void testSaveJITRWithInvalidPraxisEstimaedCost()
+    void saveJITRWithInvalidPraxisEstimaedCost()
     {
         JITR jitr = new JITR();
 
@@ -247,7 +247,7 @@ public class JITRServiceTest
     }
 
     @Test()
-    public void testSaveJITRWithInvalidWinningPrimeEstimaedCost()
+    void saveJITRWithInvalidWinningPrimeEstimaedCost()
     {
         JITR jitr = new JITR();
 
@@ -286,7 +286,7 @@ public class JITRServiceTest
     /* --- TESTS FOR UPDATE REQUEST METHODS --- */
 
     @Test
-    public void testUpdateJITRWithExistingJITRNumber()
+    void updateJITRWithExistingJITRNumber()
     {
         // first, create new JITR
         JITR jitr = new JITR();
@@ -321,7 +321,7 @@ public class JITRServiceTest
     }
 
     @Test
-    public void testUpdateJITRWithNonExistingJITRNumber()
+    void updateJITRWithNonExistingJITRNumber()
     {
         // first, create new JITR
         JITR jitr = new JITR();
@@ -367,7 +367,7 @@ public class JITRServiceTest
     }
 
     @Test
-    public void testUpdateJITRWithInvalidNumberOfFTE()
+    void updateJITRWithInvalidNumberOfFTE()
     {
         // first, create new JITR
         JITR jitr = new JITR();
@@ -410,7 +410,7 @@ public class JITRServiceTest
     }
 
     @Test
-    public void testUpdateJITRWithInvalidPraxisEstimatedCost()
+    void updateJITRWithInvalidPraxisEstimatedCost()
     {
         // first, create new JITR
         JITR jitr = new JITR();
@@ -453,7 +453,7 @@ public class JITRServiceTest
     }
 
     @Test
-    public void testUpdateJITRWithInvalidWinningPrimeEstimatedCost()
+    void updateJITRWithInvalidWinningPrimeEstimatedCost()
     {
         // first, create new JITR
         JITR jitr = new JITR();
@@ -498,7 +498,7 @@ public class JITRServiceTest
     /* --- TESTS FOR DELETE REQUEST METHODS --- */
 
     @Test
-    public void testDeleteJITRWithExistingJITRNumber()
+    void deleteJITRWithExistingJITRNumber()
     {
         // first, create new JITR
         JITR jitr = new JITR();
@@ -531,7 +531,7 @@ public class JITRServiceTest
     }
 
     @Test
-    public void testDeleteJITRWithNonExistingJITRNumber()
+    void deleteJITRWithNonExistingJITRNumber()
     {
         int jitrNumber = 10001;
 

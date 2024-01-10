@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class PositionControllerTest 
+class PositionControllerTest 
 {
     @Autowired
     private PositionController positionController;
@@ -20,7 +20,7 @@ public class PositionControllerTest
     /* --- TESTS FOR GET REQUEST METHODS --- */
 
     @Test
-    public void testGetAllPositions()
+    void getAllPositions()
     {
         List<Position> positionList = positionController.getAllPositions();
 
@@ -28,7 +28,7 @@ public class PositionControllerTest
     }
 
     @Test
-    public void testGetDistinctLCATDescriptions()
+    void getDistinctLCATDescriptions()
     {
         List<String> lcatDescriptionList = positionController.getDistinctLCATDescriptions();
 
@@ -36,7 +36,7 @@ public class PositionControllerTest
     }
 
     @Test
-    public void testGetLCATLevelsByValidLCATDescriptionForCancelledJITRs()
+    void getLCATLevelsByValidLCATDescriptionForCancelledJITRs()
     {
         String lcatDescription = "Systems Engineer";
 
@@ -44,7 +44,7 @@ public class PositionControllerTest
     }
 
     @Test
-    public void testGetLCATLevelsByInvalidLCATDescriptionForCancelledJITRs()
+    void getLCATLevelsByInvalidLCATDescriptionForCancelledJITRs()
     {
         String lcatDescription = "System Engineer";
 
@@ -60,7 +60,7 @@ public class PositionControllerTest
     }
 
     @Test
-    public void testGetLCATLevelsByValidLCATDescriptionForActiveJITRs()
+    void getLCATLevelsByValidLCATDescriptionForActiveJITRs()
     {
         String lcatDescription = "Systems Engineer";
 
@@ -68,7 +68,7 @@ public class PositionControllerTest
     }
 
     @Test
-    public void testGetLCATLevelsByInvalidLCATDescriptionForActiveJITRs()
+    void getLCATLevelsByInvalidLCATDescriptionForActiveJITRs()
     {
         String lcatDescription = "System Engineer";
 
@@ -84,7 +84,7 @@ public class PositionControllerTest
     }
 
     @Test
-    public void testGetPositionIDByLCATAndLevelDescriptionsWithValidInputs()
+    void getPositionIDByLCATAndLevelDescriptionsWithValidInputs()
     {
         String lcatDescription = "Systems Engineer";
         String lcatLevelDescription = "Expert";
@@ -93,7 +93,7 @@ public class PositionControllerTest
     }
 
     @Test
-    public void testGetPositionIDByLCATAndLevelDescriptionsWithInvalidLCATDescription()
+    void getPositionIDByLCATAndLevelDescriptionsWithInvalidLCATDescription()
     {
         String lcatDescription = "System Engineer";
         String lcatLevelDescription = "Expert";
@@ -110,7 +110,7 @@ public class PositionControllerTest
     }
 
     @Test
-    public void testGetPositionIDByLCATAndLevelDescriptionsWithInvalidLCATLevelDescription()
+    void getPositionIDByLCATAndLevelDescriptionsWithInvalidLCATLevelDescription()
     {
         String lcatDescription = "Systems Engineer";
         String lcatLevelDescription = "Experrr";
@@ -129,7 +129,7 @@ public class PositionControllerTest
     /* --- TESTS FOR POST REQUEST METHODS --- */
 
     @Test
-    public void testAddPosition()
+    void addPosition()
     {
         Position position = new Position();
 
